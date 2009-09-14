@@ -1,0 +1,8 @@
+<div class="attributes">
+<div class="splitcontentleft">
+<p><%= f.select :status_id, (@allowed_statuses.collect {|p| [p.name, p.id]}), :required => true %></p>
+</div>
+<div class="splitcontentright">
+<p><%= f.select :done_ratio, ((0..10).to_a.collect {|r| ["#{r*10} %", r*10] }) %></p>
+</div>
+</div>

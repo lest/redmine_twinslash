@@ -8,8 +8,10 @@ Dispatcher.to_prepare do
 end
 
 Redmine::Plugin.register :redmine_twinslash do
-  name 'Redmine Twinslash plugin'
+  name 'Twinslash plugin'
   author 'Just Lest'
   description ''
-  version '0.0.2'
+  version '0.1.0'
 end
+
+UPDATABLE_ATTRS_ON_TRANSITION = %w(status_id done_ratio)
