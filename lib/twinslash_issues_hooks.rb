@@ -16,4 +16,9 @@ JS
     end
     out
   end
+
+  def controller_issues_bulk_edit_before_save(context = {})
+    context[:issue].start_date = nil if context[:params][:start_date] == 'none'
+    context[:issue].due_date = nil if context[:params][:due_date] == 'none'
+  end
 end
