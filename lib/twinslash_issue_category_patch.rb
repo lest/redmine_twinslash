@@ -30,10 +30,11 @@ module TwinslashIssueCategoryPatch
       page.parent = features_page
       old_page_title = page.title
       page.title = self.name
-      page.save
       if page.new_record?
+        page.save
         WikiContent.create!(:page => page, :text => "h1. #{page.title}")
       else
+        page.save
         page.update_attribute(:title, old_page_title) if old_page_title != @previous_name
       end
       page.reload
