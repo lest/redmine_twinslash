@@ -16,7 +16,7 @@ Redmine::Plugin.register :redmine_twinslash_core do
   name 'Twinslash plugin'
   author 'Just Lest'
   description ''
-  version '0.3.3'
+  version '0.3.4'
 
   permission :copy_issue_to_category_wiki, {:issues => :copy_to_category_wiki}
 end
@@ -34,5 +34,28 @@ Redmine::WikiFormatting::Macros.register do
   macro :issue_description do |obj, args|
     issue = obj.project.issues.find(args[0])
     textilizable issue, :description, :attachments => issue.attachments
+  end
+
+  desc 'Version information'
+  macro :version_info do |obj, args|
+    version = obj.project.shared_versions.find_by_name(args[0])
+    if version
+      out = ''
+      if version.effective_date
+        out << "<b>#{format_date(version.effective_date)}</b>"
+        out << " - "
+      end
+      out << link_to(h(version.name), :controller => 'versions', :action => 'show', :id => version)
+      if version.description.present?
+        out << " - "
+        wiki_page = version.project.wiki.find_page(version.wiki_page_title)
+        if wiki_page
+          out << link_to(h(version.description), :controller => 'wiki', :action => 'index', :id => version.project, :page => wiki_page.title)
+        else
+          out << h(version.description)
+        end
+      end
+      out
+    end
   end
 end
