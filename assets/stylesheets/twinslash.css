@@ -1,3 +1,18 @@
 .jstb_issue_subject {
   background-image: url(../images/bug_link.png);
 }
+
+.journal-close-links { float: right; margin-right: 16px; }
+
+.question, .bug { margin-bottom: 12px; padding: 0 4px 8px 4px; }
+.question h4, .bug h4 { margin-top: 5px; }
+.question { background-color: #ffebc1; border: 2px solid #fdbd3b; }
+.bug { background-color: #ffe3e3; border: 2px solid #dd0000; }
+
+.journal h4 a[name^=note-], .journal h4 a[name^=journal-] { position: absolute; margin-top: -20px; }
+
+.reply { margin-left: 100px; }
+
+.formatted_questions { text-align: left; }
+.formatted_questions question_summary { display: block; }
+.formatted_questions div.tooltip:hover span.tip { left: auto; right: 100%; max-height: 300px; overflow: auto; top: 0; width: auto; }

@@ -1,3 +1,17 @@
 ru:
-  text_copy_to_category_wiki: 'Копировать в wiki категории'
+  text_copy_to_category_wiki:   'Копировать в wiki категории'
   text_recopy_to_category_wiki: 'Повторно копировать в wiki'
+
+  text_close_question:  'Закрыть вопрос'
+  text_reopen_question: 'Открыть вопрос'
+
+  text_close_bug:  'Закрыть ошибку'
+  text_reopen_bug: 'Открыть ошибку'
+
+  field_in_current_versions: 'В текущих версиях'
+  field_question_author:     'Вопрос от'
+  field_question_assignee:   'Вопрос для'
+  field_question_answer_for: 'Ответ для'
+  field_has_question:        'Есть вопросы'
+  field_has_bug:             'Есть ошибки'
+  field_formatted_questions: 'Вопросы'

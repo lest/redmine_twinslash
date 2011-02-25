@@ -1,0 +1,4 @@
+<p>
+  <label>Bug trackers</label>
+  <%= select_tag 'settings[bug_trackers]', options_for_select(Tracker.all.collect { |t| [t.name, t.id.to_s] }, @settings['bug_trackers']), :multiple => true %>
+</p>

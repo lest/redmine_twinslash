@@ -13,11 +13,21 @@ jsToolBar.prototype.elements.issue_subject = {
 	}
 }
 javascript_tag
-          out += stylesheet_link_tag 'twinslash', :plugin => 'redmine_twinslash_core'
         end
         out
       end
+
       alias_method_chain :javascript_include_tag, :twinslash
+
+      def stylesheet_link_tag_with_twinslash(*sources)
+        stylesheet_link_tag_without_twinslash(*sources).tap do |out|
+          if sources[0] == 'application'
+            out << stylesheet_link_tag('twinslash', :plugin => 'redmine_twinslash_core')
+          end
+        end
+      end
+
+      alias_method_chain :stylesheet_link_tag, :twinslash
     end
   end
 end

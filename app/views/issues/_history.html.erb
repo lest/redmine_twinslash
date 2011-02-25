@@ -1,0 +1,47 @@
+<% reply_links = authorize_for('issues', 'edit') -%>
+<% child_journals = [] %>
+<% new_journals = [] %>
+<% for journal in journals
+     if journal.reply_to_id
+       child_journals << journal
+     else
+       new_journals << journal
+     end
+   end
+   journals = new_journals
+   journal_index = 0 %>
+<% for journal in journals %>
+  <% if !journal.reply_to_id
+       insert_index = journal_index + 1
+       for child_journal in child_journals
+         if child_journal.reply_to_id == journal.id
+           journals.insert(insert_index, child_journal)
+           insert_index += 1
+         end
+       end
+     end %>
+  <div id="change-<%= journal.id %>" class="<%= journal.css_classes %>">
+    <h4>
+      <!-- <%= journal.reply_to_id && "#{journal.reply_to_id} - " %><%= journal.id %> -->
+      <div style="float:right;"><%= link_to "##{journal.indice}", :anchor => "note-#{journal.indice}" %></div>
+      <div id="journal-<%= journal.id %>-close-links" class="journal-close-links">
+        <%= render 'journals/close_links', :journal => journal %>
+      </div>
+      <%= avatar(journal.user, :size => "24") %>
+      <%= content_tag('a', '', :name => "note-#{journal.indice}")%>
+      <%= content_tag('a', '', :name => "journal-#{journal.id}")%>
+      <%= authoring journal.created_on, journal.user, :label => :label_updated_time_by %>
+    </h4>
+
+    <% if journal.details.any? %>
+    <ul class="details">
+      <% for detail in journal.details %>
+       <li><%= show_detail(detail) %></li>
+      <% end %>
+    </ul>
+    <% end %>
+    <%= render_notes(issue, journal, :reply_links => reply_links) unless journal.notes.blank? %>
+  </div>
+  <%= call_hook(:view_issues_history_journal_bottom, { :journal => journal }) %>
+  <% journal_index += 1 %>
+<% end %>

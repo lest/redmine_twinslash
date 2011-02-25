@@ -1,0 +1,2 @@
+page << "$('change-#{@journal.id}').className = '#{escape_javascript @journal.css_classes}';"
+page.replace_html "journal-#{@journal.id}-close-links", :partial => 'close_links', :locals => {:journal => @journal}

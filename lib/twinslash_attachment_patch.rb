@@ -1,5 +1,3 @@
-require_dependency 'attachment'
-
 module TwinslashAttachmentPatch
   def self.included(base)
     base.extend(ClassMethods)

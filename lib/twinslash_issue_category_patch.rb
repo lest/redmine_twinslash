@@ -1,5 +1,3 @@
-require_dependency 'issue_category'
-
 module TwinslashIssueCategoryPatch
   def self.included(base)
     base.send(:include, InstanceMethods)

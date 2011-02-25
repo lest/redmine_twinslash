@@ -15,4 +15,19 @@ module ApplicationHelper
   end
 
   alias_method_chain :link_to_remote_if_authorized, :twinslash
+
+  def link_to_if_authorized_with_twinslash(name, options = {}, html_options = nil, *parameters_for_method_reference)
+    if options.is_a?(Hash) && options[:controller] == 'issues' && options[:action] == 'edit'
+      existing_callback = html_options[:onclick] || ''
+      html_options[:onclick] = ''
+      html_options[:onclick] << "$('journal_reply_to_id').value = null;"
+      html_options[:onclick] << "$('journal_type_reply').disabled = true;"
+      html_options[:onclick] << "$('journal_type_comment').checked = true;"
+      html_options[:onclick] << "$$('input#notify_to_ids_').each(function (input) { if (!input.disabled) input.checked = false; });"
+      html_options[:onclick] << existing_callback
+    end
+    link_to_if_authorized_without_twinslash(name, options, html_options, *parameters_for_method_reference).to_s
+  end
+
+  alias_method_chain :link_to_if_authorized, :twinslash
 end

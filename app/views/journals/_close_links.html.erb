@@ -1,0 +1,12 @@
+<% if journal.is_question? %>
+  <span style="font-weight: normal;">
+    <%= journal.question_assignees.map { |u| link_to_user(u).to_s }.join(', ') %>
+    &nbsp;&nbsp;&nbsp;
+  </span>
+<% end %>
+<% if journal.is_question? && (journal.user == User.current || User.current.allowed_to?(:close_question, journal.project)) %>
+  <%= link_to_remote journal.opened? ? l(:text_close_question) : l(:text_reopen_question), :url => {:controller => 'journals', :action => 'close_bug', :id => journal, :closed => journal.opened?} %>
+<% end %>
+<% if journal.is_bug? && User.current.allowed_to?(:close_bug, journal.project) %>
+  <%= link_to_remote journal.opened? ? l(:text_close_bug) : l(:text_reopen_bug), :url => {:controller => 'journals', :action => 'close_bug', :id => journal, :closed => journal.opened?} %>
+<% end %>
